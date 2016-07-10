@@ -1,0 +1,14 @@
+#!/bin/sh
+REVISION=HEAD
+HASH=`git rev-parse $REVISION`
+SUBJECT=`git log -n 1 $HASH --pretty=%s`
+DESCRIBE=`git describe --always $HASH`
+if [ -z "$GIT_DIR" ]; then
+	GIT_DIR=`pwd`/.git
+fi
+OUTDIR=$GIT_DIR/me101me
+OUTDIR="$(cd "$OUTDIR" && pwd -P)"
+OUTFILE="$OUTDIR/$HASH.png"
+APPPATH="$(cd "$(dirname "$0")/../app" && pwd -P)"
+NW="$(cd "$(dirname "$0")/../nwjs" && pwd -P)/nw"
+"$NW" "$APPPATH" --out="$OUTFILE" --top="$DESCRIBE" --bottom="$SUBJECT"

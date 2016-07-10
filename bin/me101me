@@ -1,0 +1,7 @@
+#!/bin/sh
+OUTDIR=~/.local/share/me101me
+NOW=`date +%Y%m%d%H%M%S`
+OUTFILE="$OUTDIR/$NOW.png"
+APPPATH="$(cd "$(dirname "$0")/../app" && pwd -P)"
+NW="$(cd "$(dirname "$0")/../nwjs" && pwd -P)/nw"
+"$NW" "$APPPATH" --out="$OUTFILE"
